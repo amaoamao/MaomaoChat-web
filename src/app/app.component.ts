@@ -5,7 +5,6 @@ import {MenuController, Nav, Platform} from "ionic-angular";
 import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
 import {TutorialPage} from "../pages/tutorial/tutorial";
-import {WelcomePage} from "../pages/welcome/welcome";
 
 
 @Component({
@@ -26,8 +25,8 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      {title: 'tutorial', component: TutorialPage, icon: 'flower'},
-      {title: 'welcome', component: WelcomePage, icon: 'flower'}
+      // {title: 'tutorial', component: TutorialPage, icon: 'flower'},
+      // {title: 'welcome', component: WelcomePage, icon: 'flower'}
     ];
   }
 

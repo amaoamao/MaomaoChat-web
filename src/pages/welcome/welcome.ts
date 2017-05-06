@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
+import {SignUpPage} from "../sign-up/sign-up";
 
 // import { LoginPage } from '../login/login';
 // import { SignupPage } from '../signup/signup';
@@ -20,7 +21,7 @@ export class WelcomePage {
   }
 
   signup() {
-    // this.navCtrl.push(SignupPage);
-    console.log('signup');
+    this.navCtrl.push(SignUpPage);
+    // console.log('signup');
   }
 }

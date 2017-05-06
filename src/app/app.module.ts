@@ -8,23 +8,28 @@ import {SplashScreen} from "@ionic-native/splash-screen";
 import {TutorialPage} from "../pages/tutorial/tutorial";
 import {WelcomePage} from "../pages/welcome/welcome";
 import {IonicStorageModule} from "@ionic/storage";
+import {SignUpPage} from "../pages/sign-up/sign-up";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
     MyApp,
     TutorialPage,
-    WelcomePage
+    WelcomePage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     TutorialPage,
-    WelcomePage
+    WelcomePage,
+    SignUpPage
   ],
   providers: [
     StatusBar,
