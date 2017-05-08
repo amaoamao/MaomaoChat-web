@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>登录</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form #loginForm="ngForm" (submit)="false">
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>手机号</ion-label>
+        <ion-input type="number" required maxlength="11" minlength="11" [(ngModel)]="account.phone"
+                   name="phone"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label fixed>密码</ion-label>
+        <ion-input type="password" minlength="4" maxlength="25" required [(ngModel)]="account.password"
+                   name="password"></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button [disabled]="!loginForm.form.valid" color="primary" (click)="doLogin()" block>登录</button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>

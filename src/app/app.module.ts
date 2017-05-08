@@ -1,4 +1,3 @@
-///<reference path="../pages/tutorial/tutorial.ts"/>
 import {BrowserModule} from "@angular/platform-browser";
 import {ErrorHandler, NgModule} from "@angular/core";
 import {IonicApp, IonicErrorHandler, IonicModule} from "ionic-angular";
@@ -10,14 +9,24 @@ import {WelcomePage} from "../pages/welcome/welcome";
 import {IonicStorageModule} from "@ionic/storage";
 import {SignUpPage} from "../pages/sign-up/sign-up";
 import {HttpModule} from "@angular/http";
+import {LoginPage} from "../pages/login/login";
+import {Api} from "../providers/api";
+import {User} from "../providers/user";
+
+
+let pages = [
+  MyApp,
+  TutorialPage,
+  WelcomePage,
+  SignUpPage,
+  LoginPage
+];
+
+
+
 
 @NgModule({
-  declarations: [
-    MyApp,
-    TutorialPage,
-    WelcomePage,
-    SignUpPage
-  ],
+  declarations: pages,
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -25,15 +34,12 @@ import {HttpModule} from "@angular/http";
     HttpModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    TutorialPage,
-    WelcomePage,
-    SignUpPage
-  ],
+  entryComponents: pages,
   providers: [
     StatusBar,
     SplashScreen,
+    User,
+    Api,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
