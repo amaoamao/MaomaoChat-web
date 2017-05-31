@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {AlertController, NavController, ToastController} from "ionic-angular";
 import {User} from "../../providers/user";
+import {MainPage} from "../main/main";
 
 @Component({
   selector: 'page-sign-up',
@@ -27,8 +28,11 @@ export class SignUpPage {
         message: data.error.message,
         duration: 3000
       }).present();
-      if (data['error']['code'] == '0') {
-        //TODO:navigate to main page
+      if (data.error.code == 0) {
+        this.navCtrl.setRoot(MainPage, {}, {
+          animate: true,
+          direction: 'forward'
+        });
       }
     }, () => {
       this.toastCtrl.create({

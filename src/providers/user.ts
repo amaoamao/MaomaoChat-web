@@ -11,7 +11,7 @@ export class User {
 
 
   login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    let seq = this.api.post('signIn', accountInfo).share();
 
     seq
       .map(res => res.json())

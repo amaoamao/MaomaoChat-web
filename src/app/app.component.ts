@@ -1,10 +1,10 @@
 import {Component, ViewChild} from "@angular/core";
 
-import {MenuController, Nav, Platform} from "ionic-angular";
+import {App, IonicApp, MenuController, Nav, Platform} from "ionic-angular";
 
 import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
-import {TutorialPage} from "../pages/tutorial/tutorial";
+import {MainPage} from "../pages/main/main";
 
 
 @Component({
@@ -13,30 +13,61 @@ import {TutorialPage} from "../pages/tutorial/tutorial";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = TutorialPage;
-  pages: Array<{ title: string, component: any, icon: string }>;
+  // rootPage = TutorialPage;
+  rootPage = MainPage;
 
   constructor(public platform: Platform,
               public menu: MenuController,
               public statusBar: StatusBar,
-              public splashScreen: SplashScreen) {
+              public splashScreen: SplashScreen, private app: App, private ionicApp: IonicApp) {
     this.initializeApp();
-
-    this.pages = [
-      // {title: 'tutorial', component: TutorialPage, icon: 'flower'},
-      // {title: 'welcome', component: WelcomePage, icon: 'flower'}
-    ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.setupBackButtonBehavior();
     });
   }
 
-  openPage(page) {
-    this.menu.close();
-    this.nav.setRoot(page.component);
+
+  private setupBackButtonBehavior() {
+
+    // If on web version (browser)
+    if (window.location.protocol !== "file:") {
+
+      // Register browser back button action(s)
+      window.onpopstate = (evt) => {
+
+        // Close menu if open
+        if (this.menu.isOpen()) {
+          this.menu.close();
+          return;
+        }
+
+        // Close any active modals or overlays
+        let activePortal = this.ionicApp._loadingPortal.getActive() ||
+          this.ionicApp._modalPortal.getActive() ||
+          this.ionicApp._toastPortal.getActive() ||
+          this.ionicApp._overlayPortal.getActive();
+
+        if (activePortal) {
+          activePortal.dismiss();
+          return;
+        }
+
+        // Navigate back
+        if (this.app.getRootNav().canGoBack()) this.app.getRootNav().pop();
+
+      };
+
+      // Fake browser history on each view enter
+      this.app.viewDidEnter.subscribe((app) => {
+        history.pushState(null, null, "");
+      });
+
+    }
+
   }
 }

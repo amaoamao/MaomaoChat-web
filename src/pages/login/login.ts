@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, ToastController} from "ionic-angular";
 import {User} from "../../providers/user";
+import {MainPage} from "../main/main";
 
 @Component({
   selector: 'page-login',
@@ -9,8 +10,8 @@ import {User} from "../../providers/user";
 export class LoginPage {
 
   account: { phone: string, password: string } = {
-    phone: '',
-    password: ''
+    phone: '17700000000',
+    password: '0000'
   };
 
   constructor(public navCtrl: NavController,
@@ -25,9 +26,11 @@ export class LoginPage {
         duration: 3000
       }).present();
       if (resp.error.code == 0) {
-        //TODO:navigate to main page
+        this.navCtrl.setRoot(MainPage, {}, {
+          animate: true,
+          direction: 'forward'
+        });
       }
-      console.log(resp);
     }, () => {
       this.toastCtrl.create({
         message: "服务器出错啦，请稍后再试",

@@ -12,6 +12,8 @@ import {HttpModule} from "@angular/http";
 import {LoginPage} from "../pages/login/login";
 import {Api} from "../providers/api";
 import {User} from "../providers/user";
+import {MainPage} from "../pages/main/main";
+import {ChatPage} from "../pages/chat/chat";
 
 
 let pages = [
@@ -19,7 +21,9 @@ let pages = [
   TutorialPage,
   WelcomePage,
   SignUpPage,
-  LoginPage
+  LoginPage,
+  MainPage,
+  ChatPage
 ];
 
 
