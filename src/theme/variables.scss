@@ -61,10 +61,28 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
-.ion-md-arrow-up {
-  color: #ff4c60
-}
+.action-sheet-container {
+  .ion-md-arrow-up {
+    color: #ff4c60
+  }
 
-.ion-md-trash {
-  color: #959595
+  .ion-md-trash {
+    color: #959595
+  }
+
+  .ion-md-person-add {
+    color: #e94335;
+  }
+
+  .ion-md-people {
+    color: #fabb05;
+  }
+
+  .ion-md-radio {
+    color: #4285f3;
+  }
+
+  .ion-md-create {
+    color: #34a853;
+  }
 }

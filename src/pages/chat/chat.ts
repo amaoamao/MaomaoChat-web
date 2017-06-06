@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
+import {ChatController} from "../../providers/chat-controller";
 
 
 @Component({
@@ -8,14 +9,16 @@ import {NavController, NavParams} from "ionic-angular";
 })
 export class ChatPage {
   private name: string;
-  private id: string;
-  private profilePic: string;
+  private phone: string;
+  private avatar: string;
+  private messages: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public chatCtrl: ChatController, public navCtrl: NavController, public navParams: NavParams) {
     let item = navParams.get('item');
     this.name = item.name;
-    this.id = item.id;
-    this.profilePic = item.profilePic;
+    this.phone = item.phone;
+    this.avatar = item.avatar;
+
   }
 
   dismiss() {

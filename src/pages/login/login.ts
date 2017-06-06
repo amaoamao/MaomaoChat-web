@@ -10,8 +10,8 @@ import {MainPage} from "../main/main";
 export class LoginPage {
 
   account: { phone: string, password: string } = {
-    phone: '17700000000',
-    password: '0000'
+    phone: '17761302891',
+    password: '123456'
   };
 
   constructor(public navCtrl: NavController,

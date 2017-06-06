@@ -4,7 +4,8 @@ import {App, IonicApp, MenuController, Nav, Platform} from "ionic-angular";
 
 import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
-import {MainPage} from "../pages/main/main";
+// import {MainPage} from "../pages/main/main";
+import {TutorialPage} from "../pages/tutorial/tutorial";
 
 
 @Component({
@@ -13,8 +14,8 @@ import {MainPage} from "../pages/main/main";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // rootPage = TutorialPage;
-  rootPage = MainPage;
+  rootPage = TutorialPage;
+  // rootPage = MainPage;
 
   constructor(public platform: Platform,
               public menu: MenuController,
@@ -38,7 +39,7 @@ export class MyApp {
     if (window.location.protocol !== "file:") {
 
       // Register browser back button action(s)
-      window.onpopstate = (evt) => {
+      window.onpopstate = () => {
 
         // Close menu if open
         if (this.menu.isOpen()) {
@@ -63,7 +64,7 @@ export class MyApp {
       };
 
       // Fake browser history on each view enter
-      this.app.viewDidEnter.subscribe((app) => {
+      this.app.viewDidEnter.subscribe(() => {
         history.pushState(null, null, "");
       });
 

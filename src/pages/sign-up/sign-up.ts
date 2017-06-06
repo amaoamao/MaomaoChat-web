@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {AlertController, NavController, ToastController} from "ionic-angular";
 import {User} from "../../providers/user";
-import {MainPage} from "../main/main";
 
 @Component({
   selector: 'page-sign-up',
@@ -23,16 +22,15 @@ export class SignUpPage {
   }
 
   doSignUp() {
+    console.log({'user': this.account, 'token': this.token});
     this.user.signUp({'user': this.account, 'token': this.token}).map(data => data.json()).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
         duration: 3000
       }).present();
       if (data.error.code == 0) {
-        this.navCtrl.setRoot(MainPage, {}, {
-          animate: true,
-          direction: 'forward'
-        });
+        console.log('pop');
+        this.navCtrl.pop();
       }
     }, () => {
       this.toastCtrl.create({
@@ -67,7 +65,7 @@ export class SignUpPage {
               if (data.error.code == 0) {
                 prompt.dismiss();
                 this.phoneNumberAuthed = true;
-                this.token = data.token;
+                this.token = data.data.token;
               }
             }, () => {
               this.toastCtrl.create({

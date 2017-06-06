@@ -5,6 +5,7 @@ import {MenuController, NavController} from "ionic-angular";
 import {WelcomePage} from "../welcome/welcome";
 
 import {Storage} from "@ionic/storage";
+import {MainPage} from "../main/main";
 
 export interface Slide {
   title: string;
@@ -26,7 +27,16 @@ export class TutorialPage {
         if (val != "false") {
           storage.set("first_launch", "false");
         } else {
-          this.startApp();
+          storage.get('token').then(value => {
+            if (value) {
+              this.navCtrl.setRoot(MainPage, {}, {
+                animate: true,
+                direction: 'forward'
+              });
+            } else {
+              this.startApp();
+            }
+          });
         }
       })
     });

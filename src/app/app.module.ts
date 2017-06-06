@@ -14,6 +14,10 @@ import {Api} from "../providers/api";
 import {User} from "../providers/user";
 import {MainPage} from "../pages/main/main";
 import {ChatPage} from "../pages/chat/chat";
+import {RecentChatPage} from "../pages/recent-chat/recent-chat";
+import {ContactsPage} from "../pages/contacts/contacts";
+import {Dialogs} from "../providers/dialogs";
+import {ChatController} from "../providers/chat-controller";
 
 
 let pages = [
@@ -23,10 +27,10 @@ let pages = [
   SignUpPage,
   LoginPage,
   MainPage,
-  ChatPage
+  ChatPage,
+  RecentChatPage,
+  ContactsPage
 ];
-
-
 
 
 @NgModule({
@@ -44,6 +48,8 @@ let pages = [
     SplashScreen,
     User,
     Api,
+    Dialogs,
+    ChatController,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
