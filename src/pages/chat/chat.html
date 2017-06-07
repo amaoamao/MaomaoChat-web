@@ -20,29 +20,39 @@
 
 <ion-content>
   <ion-list>
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<img src="{{character.image}}">-->
-    <!--</ion-avatar>-->
-    <!--<h2>{{character.name}}</h2>-->
-    <!--<p>{{character.quote}}</p>-->
-    <!--</ion-item>-->
 
-    <!--<ion-item *ngFor="let item of character['items']">-->
-    <!--{{item.title}}-->
-    <!--<ion-note item-end>-->
-    <!--{{item.note}}-->
-    <!--</ion-note>-->
-    <!--</ion-item>-->
-  </ion-list>
+    <ion-item no-lines *ngFor="let msg of messages">
 
-  <ion-list class="message-input no-padding">
-    <ion-item-divider></ion-item-divider>
-    <ion-item class="no-padding">
-      <ion-input placeholder="Enter Text" type="text"></ion-input>
-      <button ion-button icon-only item-right clear small>
-        <ion-icon name="send"></ion-icon>
-      </button>
+      <div class="message-box" *ngIf="msg.receiver.id==phone" item-right>
+        {{msg.message.content}}
+      </div>
+      <ion-avatar *ngIf="msg.receiver.id==phone" item-right>
+        <img src="assets/img/appicon.png"/>
+      </ion-avatar>
+
+
+      <ion-avatar *ngIf="msg.receiver.id!=phone" item-left>
+        <img [src]="avatar"/>
+      </ion-avatar>
+      <div class="message-box" *ngIf="msg.receiver.id!=phone" item-left>
+        {{msg.message.content}}
+      </div>
     </ion-item>
   </ion-list>
+
 </ion-content>
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <ion-row>
+      <ion-col col-10>
+        <ion-input placeholder="Enter Text" type="text" (keydown.enter)="text.length?sendMessage():return"
+                   [(ngModel)]="text"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button icon-only item-right clear (click)="sendMessage()" [disabled]="!text.length">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

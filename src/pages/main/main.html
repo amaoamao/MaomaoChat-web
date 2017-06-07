@@ -6,9 +6,9 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item *ngFor="" (click)="false">
-        <!--<ion-icon name="{{p.icon}}" item-left></ion-icon>-->
-        <!--{{p.title}}-->
+      <button ion-item *ngFor="let p of items" (click)="p.handle()">
+        <ion-icon name="{{p.icon}}" item-left></ion-icon>
+        {{p.title}}
       </button>
     </ion-list>
   </ion-content>

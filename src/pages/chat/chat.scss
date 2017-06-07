@@ -9,5 +9,16 @@ page-chat {
     padding: 0 !important;
   }
 
+  .message-box {
+    background-color: #ff4c60;
+    color: #f4f4f4;
+    border-radius: 5px;
+    margin: 5px 0 0 0;
+    padding: 15px;
+    max-width: 60%;
+    display: inline-block;
+    user-select: text;
+  }
+
 }
 

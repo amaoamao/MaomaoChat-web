@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {
   ActionSheetController,
   AlertController,
+  LoadingController,
   MenuController,
   ModalController,
   NavController,
@@ -26,8 +27,8 @@ import {ChatPage} from "../chat/chat";
 export class ContactsPage {
   contactList: any[];
 
-  constructor(public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
-    user.getFriends().map(data => data.json()).subscribe(data => {
+  constructor(public loadingCtrl: LoadingController, public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
+    user.getFriends().subscribe(data => {
       console.log(data);
       this.contactList = data.data;
     });
@@ -45,6 +46,23 @@ export class ContactsPage {
   openItem(item: any) {
     this.navCtrl.push(ChatPage, {
       item: item
+    });
+  }
+
+  deleteFriend(item: any) {
+    let loader = this.loadingCtrl.create({
+      content: "稍等哦..."
+    });
+    loader.present();
+    this.user.deleteFriend(item.phone).subscribe(data => {
+      this.toastCtrl.create({
+        message: data.error.message,
+        duration: 3000
+      }).present();
+      this.contactList.splice(this.contactList.indexOf(item), 1);
+    }, err => {
+    }, () => {
+      loader.dismiss();
     });
   }
 }

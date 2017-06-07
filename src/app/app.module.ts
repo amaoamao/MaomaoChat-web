@@ -20,7 +20,7 @@ import {Dialogs} from "../providers/dialogs";
 import {ChatController} from "../providers/chat-controller";
 
 
-let pages = [
+let pages: any = [
   MyApp,
   TutorialPage,
   WelcomePage,

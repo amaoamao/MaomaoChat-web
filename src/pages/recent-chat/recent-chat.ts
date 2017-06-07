@@ -22,52 +22,59 @@ import {Dialogs} from "../../providers/dialogs";
 
 @Component({
   selector: 'page-recent-chat',
-  templateUrl: 'recent-chat.html',
+  templateUrl: 'recent-chat.html'
 })
 export class RecentChatPage {
+  comparator: any = (item1: any, item2: any) => {
+    if (item1.fixed && item2.fixed)
+      return 0;
+    if (item1.fixed)
+      return -1;
+    return 1;
+  };
   currentItems: any[] = [
     {
       "name": "User1",
       "avatar": "assets/img/speakers/bear.jpg",
       "about": "晚上吃啥啊",
-      "phone": "123456",
-      "time": "17:36"
+      "phone": "1",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User2",
       "avatar": "assets/img/speakers/cheetah.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "2",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User3",
       "avatar": "assets/img/speakers/duck.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "3",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User4",
       "avatar": "assets/img/speakers/eagle.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "4",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User5",
       "avatar": "assets/img/speakers/elephant.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "5",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User6",
       "avatar": "assets/img/speakers/mouse.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "6",
+      "time": "17:36", "fixed": false
     },
     {
       "name": "User7",
       "avatar": "assets/img/speakers/puppy.jpg",
-      "about": "晚上吃啥啊", "phone": "123456",
-      "time": "17:36"
+      "about": "晚上吃啥啊", "phone": "7",
+      "time": "17:36", "fixed": false
     }
   ];
 
@@ -84,16 +91,16 @@ export class RecentChatPage {
     this.currentItems.splice(this.currentItems.indexOf(item), 1);
   }
 
-  presentActionSheet(item) {
+  presentActionSheet(item, sliding) {
     let that = this;
     let actionSheet = this.actionSheetCtrl.create({
       title: `将与${item.name}的对话`,
       buttons: [
         {
-          text: '置顶',
+          text: `${item.fixed ? '取消' : ''}置顶`,
           icon: !this.platform.is('ios') ? 'arrow-up' : null,
           handler: () => {
-            that.makeItTop(item);
+            that.makeItTop(item, sliding);
           }
         }, {
           text: '删除',
@@ -114,11 +121,14 @@ export class RecentChatPage {
     });
   }
 
-  makeItTop(item: any) {
-
+  makeItTop(item: any, sliding: any) {
+    item.fixed = !item.fixed;
+    sliding.close();
+    console.log(item);
   }
 
   toggleMenu() {
     this.menu.toggle();
   }
 }
+

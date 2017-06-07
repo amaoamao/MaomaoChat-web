@@ -88,7 +88,7 @@ export class Dialogs {
           text: '走着',
           handler: data => {
             console.log(data);
-            user.addFriend(data.phone, data.mark).map(data => data.json()).subscribe(data => {
+            user.addFriend(data.phone, data.mark).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
                 duration: 3000
@@ -122,7 +122,7 @@ export class Dialogs {
           text: '走着',
           handler: data => {
             console.log(data);
-            user.addGroup(data.group).map(data => data.json()).subscribe(data => {
+            user.addGroup(data.group).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
                 duration: 3000
@@ -156,7 +156,7 @@ export class Dialogs {
           text: '走着',
           handler: data => {
             console.log(data);
-            user.addChannel(data.channel).map(data => data.json()).subscribe(data => {
+            user.addChannel(data.channel).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
                 duration: 3000
@@ -193,7 +193,7 @@ export class Dialogs {
           text: '走着',
           handler: data => {
             console.log(data);
-            user.createGroup(data).map(data => data.json()).subscribe(data => {
+            user.createGroup(data).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
                 duration: 3000
@@ -230,7 +230,7 @@ export class Dialogs {
           text: '走着',
           handler: data => {
             console.log(data);
-            user.createChannel(data).map(data => data.json()).subscribe(data => {
+            user.createChannel(data).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
                 duration: 3000

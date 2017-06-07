@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ToastController} from "ionic-angular";
+import {LoadingController, NavController, ToastController} from "ionic-angular";
 import {User} from "../../providers/user";
 import {MainPage} from "../main/main";
 
@@ -10,17 +10,21 @@ import {MainPage} from "../main/main";
 export class LoginPage {
 
   account: { phone: string, password: string } = {
-    phone: '17761302891',
-    password: '123456'
+    phone: '',
+    password: ''
   };
 
   constructor(public navCtrl: NavController,
               public user: User,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
   }
 
   doLogin() {
-    this.user.login(this.account).map(res => res.json()).subscribe((resp) => {
+    let loader = this.loadingCtrl.create({
+      content: "稍等哦..."
+    });
+    loader.present();
+    this.user.login(this.account).subscribe((resp) => {
       this.toastCtrl.create({
         message: resp.error.message,
         duration: 3000
@@ -31,11 +35,12 @@ export class LoginPage {
           direction: 'forward'
         });
       }
-    }, () => {
+    }, (error) => {
       this.toastCtrl.create({
         message: "服务器出错啦，请稍后再试",
         duration: 3000
       }).present();
-    });
+      console.log('fxxxkerror', error);
+    }, () => loader.dismiss());
   }
 }

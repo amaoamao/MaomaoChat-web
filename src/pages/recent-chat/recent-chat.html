@@ -25,19 +25,21 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)" (press)="presentActionSheet(item)">
+    <ion-item-sliding #sliding *ngFor="let item of currentItems">
+      <button ion-item (click)="openItem(item)" [ngClass]="{'chat-fixed':item.fixed}"
+              (press)="presentActionSheet(item,sliding)">
         <ion-avatar item-left>
-          <img [src]="item.avatar"/>
+          <img src="assets/img/speakers/bear.jpg"/>
         </ion-avatar>
         <h2>{{item.name}}</h2>
         <p>{{item.about}}</p>
         <ion-note item-right>{{item.time}}</ion-note>
+        <ion-badge item-right color="danger">1</ion-badge>
       </button>
 
       <ion-item-options>
-        <button ion-button color="primary" (click)="makeItTop(item)">
-          &nbsp;&nbsp;置顶&nbsp;&nbsp;
+        <button ion-button color="primary" (click)="makeItTop(item,sliding)">
+          &nbsp;&nbsp;{{item.fixed?'取消':''}}置顶&nbsp;&nbsp;
         </button>
         <button ion-button color="danger" (click)="deleteItem(item)">
           &nbsp;&nbsp;删除&nbsp;&nbsp;

@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
+import {Storage} from "@ionic/storage";
 
 /*
  Generated class for the ChatController provider.
@@ -12,24 +13,43 @@ import {Observable} from "rxjs/Observable";
 export class ChatController {
   private messages: [{ sender: string; receiver: { type: number; id: string }; message: { type: number; content: string; time: string } }];
 
-  constructor() {
+  constructor(storage: Storage) {
     this.messages = [{
-      "sender": "1234567890",
+      "sender": "1",
 
       "receiver": {
         "type": 0,
-        "id": "1234567890"
+        "id": "17761302891"
       },
 
       "message": {
         "type": 0,
-        "content": "12345678",
+        "content": "晚上吃啥啊",
+        "time": "2017-5-26 19：30：00"
+      }
+    }, {
+      "sender": "2",
+
+      "receiver": {
+        "type": 0,
+        "id": "17761302891"
+      },
+
+      "message": {
+        "type": 0,
+        "content": "晚上吃啥啊",
         "time": "2017-5-26 19：30：00"
       }
     }]
+
   }
 
   query(phone: string) {
-    return Observable.of(...this.messages).filter(item => item.receiver.id === phone);
+    console.log(this.messages);
+    return Observable.from(this.messages).filter(item => item.receiver.id === phone || item.sender === phone).toArray();
+  }
+
+  push(msg: { sender: string; receiver: { type: number; id: string }; message: { type: number; content: string; time: string } }) {
+    this.messages.push(msg);
   }
 }

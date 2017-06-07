@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {AlertController, NavController, ToastController} from "ionic-angular";
+import {AlertController, LoadingController, NavController, ToastController} from "ionic-angular";
 import {User} from "../../providers/user";
 
 @Component({
@@ -17,13 +17,17 @@ export class SignUpPage {
   };
   token: any;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public user: User, public toastCtrl: ToastController) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public alertCtrl: AlertController, public user: User, public toastCtrl: ToastController) {
 
   }
 
   doSignUp() {
+    let loader = this.loadingCtrl.create({
+      content: "稍等哦..."
+    });
+    loader.present();
     console.log({'user': this.account, 'token': this.token});
-    this.user.signUp({'user': this.account, 'token': this.token}).map(data => data.json()).subscribe(data => {
+    this.user.signUp({'user': this.account, 'token': this.token}).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
         duration: 3000
@@ -37,10 +41,16 @@ export class SignUpPage {
         message: "服务器出错啦，请稍后再试",
         duration: 3000
       }).present();
+    }, () => {
+      loader.dismiss()
     });
   }
 
   auth() {
+    let loader = this.loadingCtrl.create({
+      content: "稍等哦..."
+    });
+    loader.present();
     let prompt = this.alertCtrl.create({
       title: '手机号验证',
       message: "请输入您收到的验证码",
@@ -54,10 +64,14 @@ export class SignUpPage {
         {
           text: '确认',
           handler: data => {
+            let loader = this.loadingCtrl.create({
+              content: "稍等哦..."
+            });
+            loader.present();
             this.user.codeAuth({
               'phone': this.account.phone,
               'code': data.code
-            }).map(data => data.json()).subscribe(data => {
+            }).subscribe(data => {
               this.toastCtrl.create({
                 message: data.error.message,
                 duration: 3000
@@ -73,6 +87,8 @@ export class SignUpPage {
                 duration: 3000
               }).present();
               prompt.dismiss();
+            }, () => {
+              loader.dismiss()
             });
             return false;
           }
@@ -80,14 +96,13 @@ export class SignUpPage {
       ],
       enableBackdropDismiss: false
     });
-    prompt.present();
-    this.user.codeAuth({'phone': this.account.phone}).map(data => data.json()).subscribe(data => {
+    this.user.codeAuth({'phone': this.account.phone}).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
         duration: 3000
       }).present();
-      if (data.error.code != 0) {
-        prompt.dismiss();
+      if (data.error.code == 0) {
+        prompt.present();
       }
     }, () => {
       this.toastCtrl.create({
@@ -95,6 +110,8 @@ export class SignUpPage {
         duration: 3000
       }).present();
       prompt.dismiss();
+    }, () => {
+      loader.dismiss()
     });
   }
 

@@ -25,8 +25,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of contactList" (click)="openItem(item)">
-      <button ion-item>
+    <ion-item-sliding *ngFor="let item of contactList">
+      <button ion-item (click)="openItem(item)">
         <ion-avatar item-left>
           <img src="assets/img/speakers/bear.jpg"/>
         </ion-avatar>
@@ -35,10 +35,10 @@
       </button>
 
       <ion-item-options>
-        <button ion-button color="primary">
-          &nbsp;&nbsp;置顶&nbsp;&nbsp;
-        </button>
-        <button ion-button color="danger">
+        <!--<button ion-button color="primary">-->
+        <!--&nbsp;&nbsp;置顶&nbsp;&nbsp;-->
+        <!--</button>-->
+        <button ion-button color="danger" (click)="deleteFriend(item)">
           &nbsp;&nbsp;删除&nbsp;&nbsp;
         </button>
 
