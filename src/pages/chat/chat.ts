@@ -27,21 +27,22 @@ export class ChatPage {
 
   sendMessage() {
     let msg = {
-      "sender": this.user.phone,
+      sender: this.user.phone,
 
-      "receiver": {
-        "type": 0,
-        "id": this.phone
+      receiver: {
+        type: 0,
+        id: this.phone
       },
 
-      "message": {
-        "type": 0,
-        "content": this.text,
-        "time": "2017-5-26 19：30：00"
+      message: {
+        type: 0,
+        content: this.text,
+        time: "2017-5-26 19：30：00"
       }
     };
     this.messages.push(msg);
     this.chatCtrl.push(msg);
+    this.user.sendMessage(msg).subscribe(msg => console.log('SUCCEED', msg), err => console.error("FAILED", err));
     this.text = '';
     console.log(this.messages);
   }

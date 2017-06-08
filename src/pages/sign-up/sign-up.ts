@@ -41,6 +41,7 @@ export class SignUpPage {
         message: "服务器出错啦，请稍后再试",
         duration: 3000
       }).present();
+      loader.dismiss();
     }, () => {
       loader.dismiss()
     });
@@ -87,6 +88,7 @@ export class SignUpPage {
                 duration: 3000
               }).present();
               prompt.dismiss();
+              loader.dismiss();
             }, () => {
               loader.dismiss()
             });
@@ -110,6 +112,7 @@ export class SignUpPage {
         duration: 3000
       }).present();
       prompt.dismiss();
+      loader.dismiss();
     }, () => {
       loader.dismiss()
     });

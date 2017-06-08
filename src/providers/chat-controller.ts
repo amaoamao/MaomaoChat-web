@@ -15,30 +15,30 @@ export class ChatController {
 
   constructor(storage: Storage) {
     this.messages = [{
-      "sender": "1",
+      sender: "1",
 
-      "receiver": {
-        "type": 0,
-        "id": "17761302891"
+      receiver: {
+        type: 0,
+        id: "17761302891"
       },
 
-      "message": {
-        "type": 0,
-        "content": "晚上吃啥啊",
-        "time": "2017-5-26 19：30：00"
+      message: {
+        type: 0,
+        content: "晚上吃啥啊",
+        time: "2017-5-26 19：30：00"
       }
     }, {
-      "sender": "2",
+      sender: "2",
 
-      "receiver": {
-        "type": 0,
-        "id": "17761302891"
+      receiver: {
+        type: 0,
+        id: "17761302891"
       },
 
-      "message": {
-        "type": 0,
-        "content": "晚上吃啥啊",
-        "time": "2017-5-26 19：30：00"
+      message: {
+        type: 0,
+        content: "晚上吃啥啊",
+        time: "2017-5-26 19：30：00"
       }
     }]
 

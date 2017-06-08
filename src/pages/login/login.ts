@@ -35,12 +35,12 @@ export class LoginPage {
           direction: 'forward'
         });
       }
-    }, (error) => {
+    }, () => {
       this.toastCtrl.create({
         message: "服务器出错啦，请稍后再试",
         duration: 3000
       }).present();
-      console.log('fxxxkerror', error);
+      loader.dismiss();
     }, () => loader.dismiss());
   }
 }

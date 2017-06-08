@@ -3,7 +3,7 @@ import {Api} from "./api";
 import "rxjs/Rx";
 import {Storage} from "@ionic/storage";
 import {Headers, RequestOptions} from "@angular/http";
-import {$WebSocket} from "angular2-websocket/angular2-websocket";
+import {$WebSocket, WebSocketSendMode} from "angular2-websocket/angular2-websocket";
 
 @Injectable()
 export class User {
@@ -19,7 +19,7 @@ export class User {
       if (value) {
         this.token = value;
         this.headers.set('token', this.token);
-        // this.connectSocket();
+        this.connectSocket();
       }
     });
     storage.get('phone').then(value => {
@@ -31,7 +31,7 @@ export class User {
 
 
   connectSocket() {
-    this.ws = new $WebSocket(`wss://${this.api.url}/chat/${this.token}`);
+    this.ws = new $WebSocket(`ws://maomaochat.tech:8080/chat/${this.token}`);
     this.ws.getDataStream().subscribe(
       (msg) => {
         console.log("next", msg.data);
@@ -43,6 +43,11 @@ export class User {
         console.log("complete");
       }
     );
+  }
+
+
+  sendMessage(msg: { sender: string, receiver: { type: number, id: string }, message: { type: number, content: string } }) {
+    return this.ws.send(msg, WebSocketSendMode.Observable, false);
   }
 
 
@@ -185,7 +190,7 @@ export class User {
     this.storage.set('token', this.token);
     this.phone = phone;
     this.storage.set('phone', this.phone);
-    // this.connectSocket();
+    this.connectSocket();
   }
 
   deleteFriend(phone: string) {
