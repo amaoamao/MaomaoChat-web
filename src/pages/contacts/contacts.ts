@@ -28,7 +28,14 @@ export class ContactsPage {
   contactList: any[];
 
   constructor(public loadingCtrl: LoadingController, public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
-    user.getFriends().subscribe(data => {
+    let loader = this.loadingCtrl.create({
+      content: "稍等哦..."
+    });
+    loader.present();
+    user.getFriends().map(resp => {
+      loader.dismiss();
+      return resp;
+    }).subscribe(data => {
       console.log(data);
       this.contactList = data.data;
     });
@@ -40,7 +47,7 @@ export class ContactsPage {
   }
 
   addFriend() {
-    this.dialogs.addClick(this.alertCtrl, this.user, this.toastCtrl, this.actionSheetCtrl, this.platform);
+    this.dialogs.addClick(this.loadingCtrl, this.alertCtrl, this.user, this.toastCtrl, this.actionSheetCtrl, this.platform);
   }
 
   openItem(item: any) {
@@ -54,15 +61,20 @@ export class ContactsPage {
       content: "稍等哦..."
     });
     loader.present();
-    this.user.deleteFriend(item.phone).subscribe(data => {
+    this.user.deleteFriend(item.phone).map(resp => {
+      loader.dismiss();
+      return resp;
+    }).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
-        duration: 3000
+        duration: 800
       }).present();
       this.contactList.splice(this.contactList.indexOf(item), 1);
     }, err => {
-    }, () => {
-      loader.dismiss();
+      this.toastCtrl.create({
+        message: '出了点小问题，稍后再试哦',
+        duration: 800
+      }).present();
     });
   }
 }

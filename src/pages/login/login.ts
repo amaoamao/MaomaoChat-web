@@ -24,10 +24,13 @@ export class LoginPage {
       content: "稍等哦..."
     });
     loader.present();
-    this.user.login(this.account).subscribe((resp) => {
+    this.user.login(this.account).map(resp => {
+      loader.dismiss();
+      return resp;
+    }).subscribe((resp) => {
       this.toastCtrl.create({
         message: resp.error.message,
-        duration: 3000
+        duration: 800
       }).present();
       if (resp.error.code == 0) {
         this.navCtrl.setRoot(MainPage, {}, {
@@ -38,9 +41,8 @@ export class LoginPage {
     }, () => {
       this.toastCtrl.create({
         message: "服务器出错啦，请稍后再试",
-        duration: 3000
+        duration: 800
       }).present();
-      loader.dismiss();
-    }, () => loader.dismiss());
+    });
   }
 }

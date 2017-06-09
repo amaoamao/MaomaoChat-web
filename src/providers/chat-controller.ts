@@ -11,41 +11,26 @@ import {Storage} from "@ionic/storage";
  */
 @Injectable()
 export class ChatController {
-  private messages: [{ sender: string; receiver: { type: number; id: string }; message: { type: number; content: string; time: string } }];
+  private messages: [{ sender: string, receiver: { type: number, id: string }, message: { type: number, content: string, time: string } }];
 
   constructor(storage: Storage) {
     this.messages = [{
-      sender: "1",
+      sender: "",
 
       receiver: {
         type: 0,
-        id: "17761302891"
+        id: ""
       },
 
       message: {
         type: 0,
-        content: "晚上吃啥啊",
-        time: "2017-5-26 19：30：00"
-      }
-    }, {
-      sender: "2",
-
-      receiver: {
-        type: 0,
-        id: "17761302891"
-      },
-
-      message: {
-        type: 0,
-        content: "晚上吃啥啊",
-        time: "2017-5-26 19：30：00"
+        content: "",
+        time: ""
       }
     }]
-
   }
 
   query(phone: string) {
-    console.log(this.messages);
     return Observable.from(this.messages).filter(item => item.receiver.id === phone || item.sender === phone).toArray();
   }
 

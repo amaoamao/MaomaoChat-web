@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {
   ActionSheetController,
   AlertController,
+  LoadingController,
   MenuController,
   ModalController,
   NavController,
@@ -78,12 +79,12 @@ export class RecentChatPage {
     }
   ];
 
-  constructor(public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
+  constructor(public loadingCtrl: LoadingController, public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
   }
 
 
   addFriend() {
-    this.dialogs.addClick(this.alertCtrl, this.user, this.toastCtrl, this.actionSheetCtrl, this.platform);
+    this.dialogs.addClick(this.loadingCtrl, this.alertCtrl, this.user, this.toastCtrl, this.actionSheetCtrl, this.platform);
   }
 
 

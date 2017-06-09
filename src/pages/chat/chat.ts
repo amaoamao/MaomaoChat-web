@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {ChatController} from "../../providers/chat-controller";
 import {User} from "../../providers/user";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -20,9 +21,11 @@ export class ChatPage {
     this.name = item.name;
     this.phone = item.phone;
     this.avatar = item.avatar;
-    chatCtrl.query(this.phone).subscribe(data => {
-      this.messages = data;
-    });
+    Observable.interval(1000).subscribe(() => chatCtrl.query(this.phone).subscribe(data => {
+        this.messages = data;
+      })
+    );
+
   }
 
   sendMessage() {
@@ -37,7 +40,7 @@ export class ChatPage {
       message: {
         type: 0,
         content: this.text,
-        time: "2017-5-26 19：30：00"
+        time: new Date().toDateString()
       }
     };
     this.messages.push(msg);

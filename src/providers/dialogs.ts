@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import "rxjs/add/operator/map";
-import {ActionSheetController, AlertController, Platform, ToastController} from "ionic-angular";
+import {ActionSheetController, AlertController, LoadingController, Platform, ToastController} from "ionic-angular";
 import {User} from "./user";
 
 /*
@@ -17,7 +17,7 @@ export class Dialogs {
     console.log('Hello Dialogs Provider');
   }
 
-  addClick(alertCtrl: AlertController, user: User, toastCtrl: ToastController, actionSheetCtrl: ActionSheetController, platform: Platform) {
+  addClick(loadingCtrl: LoadingController, alertCtrl: AlertController, user: User, toastCtrl: ToastController, actionSheetCtrl: ActionSheetController, platform: Platform) {
 
 
     let actionSheet = actionSheetCtrl.create({
@@ -87,11 +87,12 @@ export class Dialogs {
         {
           text: '走着',
           handler: data => {
+
             console.log(data);
             user.addFriend(data.phone, data.mark).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
             });
           }
@@ -125,7 +126,7 @@ export class Dialogs {
             user.addGroup(data.group).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
             });
           }
@@ -159,7 +160,7 @@ export class Dialogs {
             user.addChannel(data.channel).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
             });
           }
@@ -196,7 +197,7 @@ export class Dialogs {
             user.createGroup(data).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
             });
           }
@@ -233,7 +234,7 @@ export class Dialogs {
             user.createChannel(data).subscribe(data => {
               toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
             });
           }

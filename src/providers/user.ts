@@ -4,6 +4,8 @@ import "rxjs/Rx";
 import {Storage} from "@ionic/storage";
 import {Headers, RequestOptions} from "@angular/http";
 import {$WebSocket, WebSocketSendMode} from "angular2-websocket/angular2-websocket";
+import {ChatController} from "./chat-controller";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class User {
@@ -14,7 +16,7 @@ export class User {
   private friend: any;
   public phone: string;
 
-  constructor(public api: Api, public storage: Storage) {
+  constructor(public api: Api, public storage: Storage, public chatCtrl: ChatController) {
     storage.get('token').then(value => {
       if (value) {
         this.token = value;
@@ -32,17 +34,18 @@ export class User {
 
   connectSocket() {
     this.ws = new $WebSocket(`ws://maomaochat.tech:8080/chat/${this.token}`);
-    this.ws.getDataStream().subscribe(
-      (msg) => {
-        console.log("next", msg.data);
-      },
-      (msg) => {
-        console.log("error", msg);
-      },
-      () => {
-        console.log("complete");
-      }
-    );
+
+    this.ws.onMessage(msg => {
+      msg = JSON.parse(JSON.parse(msg.data));
+      console.log("msg", msg);
+      this.chatCtrl.push(msg);
+    });
+    this.ws.onClose(() => this.ws.reconnect());
+    this.ws.onError(err => {
+      console.log('ERROR', err);
+      Observable.of(1).delay(1000).subscribe(() => this.ws.reconnect());
+    })
+
   }
 
 

@@ -27,10 +27,13 @@ export class SignUpPage {
     });
     loader.present();
     console.log({'user': this.account, 'token': this.token});
-    this.user.signUp({'user': this.account, 'token': this.token}).subscribe(data => {
+    this.user.signUp({'user': this.account, 'token': this.token}).map(resp => {
+      loader.dismiss();
+      return resp;
+    }).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
-        duration: 3000
+        duration: 800
       }).present();
       if (data.error.code == 0) {
         console.log('pop');
@@ -39,11 +42,8 @@ export class SignUpPage {
     }, () => {
       this.toastCtrl.create({
         message: "服务器出错啦，请稍后再试",
-        duration: 3000
+        duration: 800
       }).present();
-      loader.dismiss();
-    }, () => {
-      loader.dismiss()
     });
   }
 
@@ -72,10 +72,13 @@ export class SignUpPage {
             this.user.codeAuth({
               'phone': this.account.phone,
               'code': data.code
+            }).map(resp => {
+              loader.dismiss();
+              return resp;
             }).subscribe(data => {
               this.toastCtrl.create({
                 message: data.error.message,
-                duration: 3000
+                duration: 800
               }).present();
               if (data.error.code == 0) {
                 prompt.dismiss();
@@ -85,12 +88,9 @@ export class SignUpPage {
             }, () => {
               this.toastCtrl.create({
                 message: '服务器出了点问题，稍后再试吧',
-                duration: 3000
+                duration: 800
               }).present();
               prompt.dismiss();
-              loader.dismiss();
-            }, () => {
-              loader.dismiss()
             });
             return false;
           }
@@ -98,10 +98,13 @@ export class SignUpPage {
       ],
       enableBackdropDismiss: false
     });
-    this.user.codeAuth({'phone': this.account.phone}).subscribe(data => {
+    this.user.codeAuth({'phone': this.account.phone}).map(resp => {
+      loader.dismiss();
+      return resp;
+    }).subscribe(data => {
       this.toastCtrl.create({
         message: data.error.message,
-        duration: 3000
+        duration: 800
       }).present();
       if (data.error.code == 0) {
         prompt.present();
@@ -109,12 +112,9 @@ export class SignUpPage {
     }, () => {
       this.toastCtrl.create({
         message: '服务器出了点问题，稍后再试吧',
-        duration: 3000
+        duration: 800
       }).present();
       prompt.dismiss();
-      loader.dismiss();
-    }, () => {
-      loader.dismiss()
     });
   }
 
