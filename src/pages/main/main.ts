@@ -15,7 +15,7 @@ export class MainPage {
   private tab2: any;
   private tab3: any;
   private items: [{ icon: string; handle: any; title: string }];
-
+  phone: string;
 
   constructor(public user: User, public navCtrl: NavController, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
     let that = this;
@@ -33,6 +33,7 @@ export class MainPage {
         that.user.logout();
       }, title: '退出登录'
     }];
+    this.phone = user.phone;
   }
 
 

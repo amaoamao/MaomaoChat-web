@@ -13,6 +13,7 @@ import {
 import {ChatPage} from "../chat/chat";
 import {User} from "../../providers/user";
 import {Dialogs} from "../../providers/dialogs";
+import {ChatController} from "../../providers/chat-controller";
 
 /**
  * Generated class for the RecentChatPage page.
@@ -26,60 +27,12 @@ import {Dialogs} from "../../providers/dialogs";
   templateUrl: 'recent-chat.html'
 })
 export class RecentChatPage {
-  comparator: any = (item1: any, item2: any) => {
-    if (item1.fixed && item2.fixed)
-      return 0;
-    if (item1.fixed)
-      return -1;
-    return 1;
-  };
-  currentItems: any[] = [
-    {
-      "name": "User1",
-      "avatar": "assets/img/speakers/bear.jpg",
-      "about": "晚上吃啥啊",
-      "phone": "1",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User2",
-      "avatar": "assets/img/speakers/cheetah.jpg",
-      "about": "晚上吃啥啊", "phone": "2",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User3",
-      "avatar": "assets/img/speakers/duck.jpg",
-      "about": "晚上吃啥啊", "phone": "3",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User4",
-      "avatar": "assets/img/speakers/eagle.jpg",
-      "about": "晚上吃啥啊", "phone": "4",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User5",
-      "avatar": "assets/img/speakers/elephant.jpg",
-      "about": "晚上吃啥啊", "phone": "5",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User6",
-      "avatar": "assets/img/speakers/mouse.jpg",
-      "about": "晚上吃啥啊", "phone": "6",
-      "time": "17:36", "fixed": false
-    },
-    {
-      "name": "User7",
-      "avatar": "assets/img/speakers/puppy.jpg",
-      "about": "晚上吃啥啊", "phone": "7",
-      "time": "17:36", "fixed": false
-    }
-  ];
+  currentItems: [{ sender: string, receiver: { type: number, id: string }, message: { type: number, content: string, time: string } }];
 
-  constructor(public loadingCtrl: LoadingController, public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
+
+  constructor(public chatCtrl: ChatController, public loadingCtrl: LoadingController, public dialogs: Dialogs, public toastCtrl: ToastController, public user: User, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public menu: MenuController, public actionSheetCtrl: ActionSheetController, public platform: Platform, public alertCtrl: AlertController) {
+    this.currentItems = this.chatCtrl.getAll();
+
   }
 
 
@@ -118,7 +71,7 @@ export class RecentChatPage {
 
   openItem(item: any) {
     this.navCtrl.push(ChatPage, {
-      item: item
+      item: {phone: item.sender != this.user.phone ? item.sender : item.receiver.id}
     });
   }
 

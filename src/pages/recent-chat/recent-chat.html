@@ -25,15 +25,15 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding #sliding *ngFor="let item of currentItems">
+    <ion-item-sliding #sliding *ngFor="let item of currentItems|recentPipe">
       <button ion-item (click)="openItem(item)" [ngClass]="{'chat-fixed':item.fixed}"
               (press)="presentActionSheet(item,sliding)">
         <ion-avatar item-left>
           <img src="assets/img/speakers/bear.jpg"/>
         </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-right>{{item.time}}</ion-note>
+        <h2>{{item.receiver.id}}</h2>
+        <p>{{item.message.content}}</p>
+        <ion-note item-right>{{item.message.time}}</ion-note>
         <ion-badge item-right color="danger">1</ion-badge>
       </button>
 

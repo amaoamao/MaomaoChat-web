@@ -10,15 +10,26 @@ page-chat {
   }
 
   .message-box {
-    background-color: #ff4c60;
     color: #f4f4f4;
     border-radius: 5px;
-    margin: 5px 0 0 0;
-    padding: 15px;
+    margin: 0 0 0 0;
+    padding: 12px;
     max-width: 60%;
     display: inline-block;
     user-select: text;
+
   }
 
+  .send {
+    background-color: #4285f3;
+  }
+  .receive {
+    background-color: #ff4c60;
+  }
+
+  .item-md [item-left], .item-md [item-right] {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 }
 

@@ -13,7 +13,7 @@ import {Storage} from "@ionic/storage";
 export class ChatController {
   private messages: [{ sender: string, receiver: { type: number, id: string }, message: { type: number, content: string, time: string } }];
 
-  constructor(storage: Storage) {
+  constructor(public storage: Storage) {
     this.messages = [{
       sender: "",
 
@@ -27,7 +27,11 @@ export class ChatController {
         content: "",
         time: ""
       }
-    }]
+    }];
+    storage.get('messages').then(data => {
+      if (data)
+        this.messages.push(...data);
+    });
   }
 
   query(phone: string) {
@@ -36,5 +40,10 @@ export class ChatController {
 
   push(msg: { sender: string; receiver: { type: number; id: string }; message: { type: number; content: string; time: string } }) {
     this.messages.push(msg);
+    this.storage.set('messages', this.messages);
+  }
+
+  getAll() {
+    return this.messages;
   }
 }

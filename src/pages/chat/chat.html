@@ -13,7 +13,7 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Chat with {{name}}
+      Chat with {{name?name:phone}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -23,18 +23,18 @@
 
     <ion-item no-lines *ngFor="let msg of messages">
 
-      <div class="message-box" *ngIf="msg.receiver.id==phone" item-right>
+      <div class="message-box send" *ngIf="msg.receiver.id==phone" item-right>
         {{msg.message.content}}
       </div>
       <ion-avatar *ngIf="msg.receiver.id==phone" item-right>
-        <img src="assets/img/appicon.png"/>
+        <img src="assets/img/speakers/bear.jpg"/>
       </ion-avatar>
 
 
       <ion-avatar *ngIf="msg.receiver.id!=phone" item-left>
-        <img [src]="avatar"/>
+        <img src="assets/img/speakers/bear.jpg"/>
       </ion-avatar>
-      <div class="message-box" *ngIf="msg.receiver.id!=phone" item-left>
+      <div class="message-box receive" *ngIf="msg.receiver.id!=phone" item-left>
         {{msg.message.content}}
       </div>
     </ion-item>
@@ -45,7 +45,7 @@
   <ion-toolbar position="bottom">
     <ion-row>
       <ion-col col-10>
-        <ion-input placeholder="Enter Text" type="text" (keydown.enter)="text.length?sendMessage():return"
+        <ion-input placeholder="说点什么" type="text" (keydown.enter)="text.length?sendMessage():return"
                    [(ngModel)]="text"></ion-input>
       </ion-col>
       <ion-col col-2>

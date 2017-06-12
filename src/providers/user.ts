@@ -183,7 +183,7 @@ export class User {
 
   logout() {
     this.token = null;
-    this.storage.remove('token');
+    this.storage.clear();
   }
 
 

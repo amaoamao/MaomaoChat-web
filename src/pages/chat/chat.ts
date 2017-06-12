@@ -10,17 +10,20 @@ import {Observable} from "rxjs/Observable";
   templateUrl: 'chat.html',
 })
 export class ChatPage {
-  private name: string;
   private phone: string;
+  private name: string;
   private avatar: string;
   private messages: any[];
   private text: string = '';
 
   constructor(public user: User, public chatCtrl: ChatController, public navCtrl: NavController, public navParams: NavParams) {
     let item = navParams.get('item');
-    this.name = item.name;
     this.phone = item.phone;
-    this.avatar = item.avatar;
+    this.name = item.name;
+    this.avatar = "assets/img/speakers/bear.jpg";
+    chatCtrl.query(this.phone).subscribe(data => {
+      this.messages = data;
+    });
     Observable.interval(1000).subscribe(() => chatCtrl.query(this.phone).subscribe(data => {
         this.messages = data;
       })

@@ -52,7 +52,7 @@ export class ContactsPage {
 
   openItem(item: any) {
     this.navCtrl.push(ChatPage, {
-      item: item
+      item: {phone: item.phone, name: item.name}
     });
   }
 

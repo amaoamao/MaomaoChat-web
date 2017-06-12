@@ -18,6 +18,7 @@ import {RecentChatPage} from "../pages/recent-chat/recent-chat";
 import {ContactsPage} from "../pages/contacts/contacts";
 import {Dialogs} from "../providers/dialogs";
 import {ChatController} from "../providers/chat-controller";
+import {RecentChatPipe} from "../pipes/recent-chat-pipe";
 
 
 let pages: any = [
@@ -34,7 +35,18 @@ let pages: any = [
 
 
 @NgModule({
-  declarations: pages,
+  declarations: [
+    MyApp,
+    TutorialPage,
+    WelcomePage,
+    SignUpPage,
+    LoginPage,
+    MainPage,
+    ChatPage,
+    RecentChatPage,
+    ContactsPage,
+    RecentChatPipe
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
