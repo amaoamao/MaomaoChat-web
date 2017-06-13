@@ -33,7 +33,7 @@ export class User {
 
 
   connectSocket() {
-    this.ws = new $WebSocket(`ws://maomaochat.tech:8080/chat/${this.token}`);
+    this.ws = new $WebSocket(`wss://maomaochat.tech/chat/${this.token}`);
 
     this.ws.onMessage(msg => {
       msg = JSON.parse(JSON.parse(msg.data));
